@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private GameObject starField;
     private GameObject canvas;
+    private Camera mainCamera;
 
     [SerializeField]
     private float leftBorder;
@@ -58,6 +59,10 @@ public class GameManager : MonoBehaviour
         {
             return canvas;
         }
+    }
+    public Camera MainCamera
+    {
+        get { return mainCamera; }
     }
 
     public float TopBorder
@@ -107,9 +112,10 @@ public class GameManager : MonoBehaviour
     
     public void OnSceneLoaded(Camera mainCamera)
     {
+        SetupCamera(mainCamera);
         canvas = GameObject.FindGameObjectWithTag("MainCanvas");
         SetupStarField();
-        SetupCamera(mainCamera);
+        
     }
 
     public void GameOver()
@@ -122,8 +128,9 @@ public class GameManager : MonoBehaviour
         starField = GameObject.FindGameObjectWithTag("StarField");
         starField.transform.position = Constants.InitStarfieldPosition;
     }
-    private void SetupCamera(Camera mainCamera)
+    private void SetupCamera(Camera cam)
     {
+        this.mainCamera = cam;
         mainCamera.transform.rotation = Constants.DefaultCameraRotation;
         mainCamera.transform.position = Constants.DefaultCameraPosition;
         float playerSize = 2 * Player.GetComponent<MeshRenderer>().bounds.size.x;

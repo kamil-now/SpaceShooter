@@ -6,10 +6,9 @@ public class Asteroid : MonoBehaviour
 {
     public void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("collisionAsteroid");
-        //if (collision.gameObject.tag == "Bullet")
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
     }
 }

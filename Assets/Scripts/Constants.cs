@@ -5,7 +5,7 @@ public static class Constants
     public const int MainMenuIndex = 1;
     public const int MainSceneIndex = 2;
 
-    public const float DefaultPlayerSpeed = 700;
+    public const float DefaultPlayerSpeed = 1000;
     public const float DefaultHpObjectSpeed = 3;
 
     public const float DefaultBulletSpeed = 25;

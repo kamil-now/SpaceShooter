@@ -65,6 +65,7 @@ public class Health : MonoBehaviour
     public void OnCollisionEnter()
     {
         hp--;
+        GameManager.Instance.MainCamera.gameObject.GetComponent<CameraShake>().shakeDuration=0.3f;
     }
     private void UpdateHpText()
     {
