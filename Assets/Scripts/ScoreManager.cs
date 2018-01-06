@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-
     private static ScoreManager instance;
     public static ScoreManager Instance
     {
@@ -44,22 +43,17 @@ public class ScoreManager : MonoBehaviour
             return scoreText;
         }
     }
-
-    public void Awake()
+    #region MonoBehaviour
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
     }
-    void Start()
+    private void Start()
     {
         score = 0;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }

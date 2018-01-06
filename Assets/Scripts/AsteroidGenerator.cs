@@ -21,7 +21,8 @@ public class AsteroidGenerator : MonoBehaviour
     private int speed;
     Vector3 torque;
 
-    void Start()
+    #region MonoBehaviour
+    private void Start()
     {
         asteroids = DefaultPrefabs.Instance.Asteroids;
         StartCoroutine(SpawnWaves());
@@ -31,7 +32,7 @@ public class AsteroidGenerator : MonoBehaviour
         waveWait = Constants.AsteroidWaveWait;
         speed = Constants.AsteroidDefaultSpeed;
     }
-
+    #endregion
     //TODO 
     IEnumerator SpawnWaves()
     {

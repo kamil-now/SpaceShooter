@@ -8,7 +8,6 @@ namespace Assets.Scripts
 {
     public class PoolManager : MonoBehaviour
     {
-        #region instance
         static PoolManager _instance;
         public static PoolManager Instance
         {
@@ -22,7 +21,6 @@ namespace Assets.Scripts
                 return _instance;
             }
         }
-        #endregion
 
         private readonly Dictionary<int, Queue<GameObject>> poolDictionary = new Dictionary<int, Queue<GameObject>>();
 

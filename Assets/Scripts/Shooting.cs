@@ -12,7 +12,8 @@ public class Shooting : MonoBehaviour
     //temp
     private int speed;
     //
-    void Start()
+    #region MonoBehaviour
+    private void Start()
     {
         bulletsSpawn = Instantiate(new GameObject("BulletsSpawn"));
         //temp
@@ -20,7 +21,7 @@ public class Shooting : MonoBehaviour
         //
     }
 
-    void Update()
+    private void Update()
     {
         if (ammoPrefab == null)
             ammoPrefab = DefaultPrefabs.Instance.DefaultBullet;
@@ -35,5 +36,6 @@ public class Shooting : MonoBehaviour
             time = 0;
         }
     }
+    #endregion
 }
 

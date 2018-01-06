@@ -3,8 +3,8 @@
 public class PauseGame : MonoBehaviour
 {
     bool Pause;
-
-    void Update()
+    #region MonoBehaviour
+    private void Update()
     {
 
         if (Pause == false)
@@ -33,6 +33,6 @@ public class PauseGame : MonoBehaviour
 
 
     }
-
+    #endregion
 
 }

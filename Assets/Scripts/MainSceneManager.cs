@@ -2,7 +2,7 @@
 
 public class MainSceneManager : MonoBehaviour
 {
-    public void Start()
+    private void Start()
     {
         if (Camera.main == null)
             Debug.Log("no camera");

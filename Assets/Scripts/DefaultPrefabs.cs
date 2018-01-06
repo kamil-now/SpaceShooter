@@ -61,7 +61,7 @@ public class DefaultPrefabs : MonoBehaviour
         }
     }
 
-    public void Awake()
+    private void Awake()
     {
         if (instance == null)
         {

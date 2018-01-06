@@ -30,11 +30,12 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Awake()
+    #region MonoBehaviour
+    private void Awake()
     {
         hpObjects = new List<HpObject>();
     }
-    public void Start()
+    private void Start()
     {
         hp = Constants.InitPlayerHp;
         //temp
@@ -46,7 +47,7 @@ public class Health : MonoBehaviour
             if (hpObjectsOn)
                 InitHpObjects();
     }
-    public void Update()
+    private void Update()
     {
         if (hp <= 0)
         {
@@ -62,11 +63,13 @@ public class Health : MonoBehaviour
                 UpdateHpObjects();
         }
     }
-    public void OnCollisionEnter()
+    private void OnCollisionEnter()
     {
         hp--;
-        GameManager.Instance.MainCamera.gameObject.GetComponent<CameraShake>().shakeDuration=0.3f;
+        GameManager.Instance.ShakeCamera();
     }
+    #endregion
+
     private void UpdateHpText()
     {
         //temp

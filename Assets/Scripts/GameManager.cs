@@ -94,30 +94,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
-
-    public void Awake()
+    #region MonoBehaviour
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
     }
-
-    public void Start()
+    private void Start()
     {
         SceneManager.LoadSceneAsync(Constants.MainSceneIndex);
 
     }
-    
+    #endregion
+
     public void OnSceneLoaded(Camera mainCamera)
     {
         SetupCamera(mainCamera);
         canvas = GameObject.FindGameObjectWithTag("MainCanvas");
         SetupStarField();
-        
-    }
 
+    }
+    public void ShakeCamera()
+    {
+        mainCamera.gameObject.GetComponent<CameraShake>().shakeDuration = 0.3f;
+    }
     public void GameOver()
     {
         //TODO
@@ -136,7 +138,7 @@ public class GameManager : MonoBehaviour
         float playerSize = 2 * Player.GetComponent<MeshRenderer>().bounds.size.x;
         float distanceToCamera = Vector3.Distance(Player.transform.position, mainCamera.transform.position);
         //stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        
+
         leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
         rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
         bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).z + playerSize;
@@ -147,7 +149,7 @@ public class GameManager : MonoBehaviour
         //topBorder = stageDimensions.z- playerSize;
 
     }
-    
+
 }
 
 

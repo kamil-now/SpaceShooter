@@ -12,12 +12,13 @@ public class MoveControl : MonoBehaviour
     private new Rigidbody rigidbody;
     private Vector3 vector;
 
-    public void Start()
+    #region MonoBehaviour
+    private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         speed = Constants.DefaultPlayerSpeed;
     }
-    void Update()
+    private void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
@@ -32,5 +33,6 @@ public class MoveControl : MonoBehaviour
             Mathf.Clamp(rigidbody.position.z, GameManager.Instance.BottomBorder, GameManager.Instance.TopBorder));
 
     }
+    #endregion
 }
 

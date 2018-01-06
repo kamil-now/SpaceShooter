@@ -18,7 +18,7 @@ public class HpObject
         _gameObject = gameObject;
         _radius = _gameObject.GetComponent<SphereCollider>().radius;
     }
-    public void Update(int hp, float timeCounter)
+    private void Update(int hp, float timeCounter)
     {
         float theta = (float)((2 * Mathf.PI / hp) * int.Parse(_gameObject.name));
         var x = Mathf.Cos(theta + timeCounter) * _radius + _gameObject.transform.position.x;
