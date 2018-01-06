@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField]
-    private  GameObject hpObjectPrefab;
+    private GameObject hpObjectPrefab;
     [SerializeField]
     private GameObject hpTextPrefab;
 
@@ -43,16 +43,24 @@ public class Health : MonoBehaviour
         if (hpTextOn)
             //InitHpText();
 
-        if (hpObjectsOn)
-            InitHpObjects();
+            if (hpObjectsOn)
+                InitHpObjects();
     }
     public void Update()
     {
-        if (hpTextOn)
-            UpdateHpText();
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            if (hpTextOn)
+                UpdateHpText();
 
-        if (hpObjectsOn)
-            UpdateHpObjects();
+            if (hpObjectsOn)
+                UpdateHpObjects();
+        }
     }
     public void OnCollisionEnter()
     {
@@ -82,7 +90,7 @@ public class Health : MonoBehaviour
             hpText = Instantiate(DefaultPrefabs.Instance.DefaultHpText);
         //TODO
         hpText.transform.SetParent(GameObject.Find("Canvas").transform);
-        
+
     }
     private void InitHpObjects()
     {
@@ -109,7 +117,7 @@ public class Health : MonoBehaviour
         }
         hpObjects.Clear();
     }
-    
+
 }
 
 //public class EnemyHealth : MonoBehaviour

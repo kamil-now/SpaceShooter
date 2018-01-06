@@ -1,16 +1,65 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour {
+public class ScoreManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private static ScoreManager instance;
+    public static ScoreManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    private GameObject scoreText;
+    private int score;
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+
+        set
+        {
+
+            score = value;
+            ScoreText.GetComponent<Text>().text = Score.ToString();
+        }
+    }
+    public GameObject ScoreText
+    {
+        get
+        {
+            if (scoreText == null)
+            {
+                scoreText = GameObject.FindGameObjectWithTag("Score");
+            }
+
+            return scoreText;
+        }
+    }
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+    void Start()
+    {
+        score = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

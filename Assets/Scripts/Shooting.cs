@@ -27,7 +27,7 @@ public class Shooting : MonoBehaviour
         time += Time.deltaTime;
         if (Input.GetKey("space") && time >= 0.2f)
         {
-            bullet = Instantiate(ammoPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z+2), ammoPrefab.transform.rotation);
+            bullet = Instantiate(ammoPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z+1), ammoPrefab.transform.rotation);
             bullet.transform.SetParent(bulletsSpawn.transform);
             //temp
             bullet.GetComponent<Rigidbody>().velocity = new Vector3(0,0, speed);

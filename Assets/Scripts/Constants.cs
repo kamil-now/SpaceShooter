@@ -15,12 +15,15 @@ public static class Constants
     public const float AsteroidWaveWait = 2;
     public const int AsteroidDefaultSpeed = 7;
 
-    public const int InitPlayerHp = 50;
-    
+    public const int InitPlayerHp = 10;
+
+    public static readonly Quaternion DefaultCameraRotation = new Quaternion(0.7071068f, 0,0, 0.7071068f);
+    public static readonly Vector3 DefaultCameraPosition = new Vector3(0, 10, 5);
 
     public static readonly Vector3 InitPlayerPosition = new Vector3(0, 0, 0);
-    public static readonly Vector3 InitStarfieldPosition = new Vector3(0, 0, 20);
-    public static readonly Vector3 AsteroidSpawnPosition = new Vector3(0, 0, 30);
+    public static readonly Vector3 InitStarfieldPosition = new Vector3(0, -5, 15);
+
+    public static readonly Vector3 AsteroidSpawnPosition = new Vector3(0, 0, 15);
 
 }
 

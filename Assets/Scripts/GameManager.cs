@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     }
 
     private GameObject player;
+    private GameObject starField;
+    private GameObject canvas;
+
     [SerializeField]
     private float leftBorder;
     [SerializeField]
@@ -35,6 +38,25 @@ public class GameManager : MonoBehaviour
             }
 
             return player;
+        }
+    }
+    public GameObject StarField
+    {
+        get
+        {
+            if (starField == null)
+            {
+                starField = GameObject.FindGameObjectWithTag("StarField");
+            }
+
+            return starField;
+        }
+    }
+    public GameObject Canvas
+    {
+        get
+        {
+            return canvas;
         }
     }
 
@@ -67,6 +89,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
+
     public void Awake()
     {
         if (instance == null)
@@ -80,27 +104,43 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(Constants.MainSceneIndex);
 
     }
-    //public Vector3 stageDimensions;
-
-    public void OnSceneLoaded(Camera camera)
+    
+    public void OnSceneLoaded(Camera mainCamera)
     {
+        canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        SetupStarField();
+        SetupCamera(mainCamera);
+    }
 
-        StarField starField = FindObjectOfType<StarField>();
+    public void GameOver()
+    {
+        //TODO
+        SceneManager.LoadSceneAsync(Constants.MainSceneIndex);
+    }
+    private void SetupStarField()
+    {
+        starField = GameObject.FindGameObjectWithTag("StarField");
         starField.transform.position = Constants.InitStarfieldPosition;
-        //TODO camera
-        float playerSize = 2*Player.GetComponent<MeshRenderer>().bounds.size.x;
-        float distanceToCamera = Vector3.Distance(Player.transform.position, camera.transform.position);
+    }
+    private void SetupCamera(Camera mainCamera)
+    {
+        mainCamera.transform.rotation = Constants.DefaultCameraRotation;
+        mainCamera.transform.position = Constants.DefaultCameraPosition;
+        float playerSize = 2 * Player.GetComponent<MeshRenderer>().bounds.size.x;
+        float distanceToCamera = Vector3.Distance(Player.transform.position, mainCamera.transform.position);
         //stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-
-        leftBorder = camera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
-        rightBorder = camera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
-        bottomBorder = camera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).z + playerSize;
-        topBorder = camera.ViewportToWorldPoint(new Vector3(0, 1, distanceToCamera)).z - playerSize;
+        
+        leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
+        rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
+        bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).z + playerSize;
+        topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distanceToCamera)).z - playerSize;
         //leftBorder = -stageDimensions.y + playerSize;
         //rightBorder = stageDimensions.y - playerSize;
         //bottomBorder = -stageDimensions.z + playerSize;
         //topBorder = stageDimensions.z- playerSize;
+
     }
+    
 }
 
 
