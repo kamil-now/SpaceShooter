@@ -24,13 +24,18 @@ public class AsteroidGenerator : MonoBehaviour
     #region MonoBehaviour
     private void Start()
     {
-        asteroids = DefaultPrefabs.Instance.Asteroids;
-        StartCoroutine(SpawnWaves());
+        if (asteroids == null)
+            asteroids = DefaultPrefabs.Instance.Asteroids;
 
-        spawnWait = Constants.AsteroidSpawnWait;
-        startWait = Constants.AsteroidStartWait;
-        waveWait = Constants.AsteroidWaveWait;
-        speed = Constants.AsteroidDefaultSpeed;
+        StartCoroutine(SpawnWaves());
+        if (System.Math.Abs(spawnWait) < 0.1)
+            spawnWait = Constants.AsteroidSpawnWait;
+        if (System.Math.Abs(startWait) < 0.1)
+            startWait = Constants.AsteroidStartWait;
+        if (System.Math.Abs(waveWait) < 0.1)
+            waveWait = Constants.AsteroidWaveWait;
+        if (speed == 0)
+            speed = Constants.AsteroidDefaultSpeed;
     }
     #endregion
     //TODO 

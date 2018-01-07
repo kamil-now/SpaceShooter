@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter()
     {
-        if (other.gameObject.tag == "Asteroid")
-        {
-            Destroy(other.gameObject);
-            
-            //TODO publish event
-            ScoreManager.Instance.Score += 10;
-            Destroy(gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }

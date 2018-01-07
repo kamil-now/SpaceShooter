@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace Assets.Scripts
 {
-    public class DDOL: MonoBehaviour
+    public class DontDestroyOnLoad: MonoBehaviour
     {
         private void Awake()
         {
