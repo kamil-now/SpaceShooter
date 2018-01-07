@@ -10,6 +10,7 @@ public class DefaultPrefabs : MonoBehaviour
             return instance;
         }
     }
+
     [SerializeField]
     private GameObject defaultBullet;
     [SerializeField]
@@ -20,6 +21,13 @@ public class DefaultPrefabs : MonoBehaviour
     private GameObject defaultHpObject;
     [SerializeField]
     private GameObject[] asteroids;
+    [SerializeField]
+    private GameObject[] smallAsteroids;
+    [SerializeField]
+    private GameObject[] mediumAsteroids;
+    [SerializeField]
+    private GameObject[] bigAsteroids;
+
     public GameObject DefaultBullet
     {
         get
@@ -27,7 +35,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultBullet;
         }
     }
-
     public GameObject DefaultEnemy
     {
         get
@@ -35,8 +42,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultEnemy;
         }
     }
-    
-
     public GameObject DefaultHpObject
     {
         get
@@ -44,7 +49,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultHpObject;
         }
     }
-
     public GameObject DefaultHpText
     {
         get
@@ -52,12 +56,32 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultHpText;
         }
     }
-
     public GameObject[] Asteroids
     {
         get
         {
             return asteroids;
+        }
+    }
+    public GameObject[] SmallAsteroids
+    {
+        get
+        {
+            return smallAsteroids;
+        }
+    }
+    public GameObject[] MediumAsteroids
+    {
+        get
+        {
+            return mediumAsteroids;
+        }
+    }
+    public GameObject[] BigAsteroids
+    {
+        get
+        {
+            return bigAsteroids;
         }
     }
 
@@ -67,6 +91,19 @@ public class DefaultPrefabs : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    public GameObject GetRandomSmallAsteroid()
+    {
+        return SmallAsteroids[Random.Range(0, SmallAsteroids.Length)];
+    }
+    public GameObject GetRandomMediumAsteroid()
+    {
+        return MediumAsteroids[Random.Range(0, MediumAsteroids.Length)];
+    }
+    public GameObject GetRandomBigAsteroid()
+    {
+        return BigAsteroids[Random.Range(0, BigAsteroids.Length)];
     }
 }
 

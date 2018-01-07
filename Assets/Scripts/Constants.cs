@@ -9,6 +9,11 @@ public static class Constants
     public const float DefaultHpObjectSpeed = 3;
 
     public const float DefaultBulletSpeed = 25;
+    public const float DefaultRateOfFire = 0.3f;
+
+    public const float SlowRateOfFire = 0.4f;
+    public const float MediumRateOfFire = 0.3f;
+    public const float FastRateOfFire = 0.2f;
 
     public const float AsteroidSpawnWait = 0.75f;
     public const float AsteroidStartWait = 2;
