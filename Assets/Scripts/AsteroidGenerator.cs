@@ -93,11 +93,11 @@ public class AsteroidGenerator : MonoBehaviour
     //TODO torque
     private IEnumerator Instantiate(GameObject asteroid, int count, Vector3 spawnPosition)
     {
-        for (int i = count; i >= 0; i--)
+        for (int i = count; i > 0; i--)
         {
             GameObject temp = Instantiate(asteroid, spawnPosition, Quaternion.identity);
             
-            StartCoroutine(DisableCollider(temp, 0.7f));
+            //StartCoroutine(DisableCollider(temp, 0.7f));
 
             torque.x = Random.Range(-0.5f, -0.5f);
             torque.y = Random.Range(-0.5f, -0.5f);
