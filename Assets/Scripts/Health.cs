@@ -52,6 +52,8 @@ public class Health : MonoBehaviour
         if (hp <= 0)
         {
             Destroy(gameObject);
+            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+
             GameManager.Instance.GameOver();
         }
         else

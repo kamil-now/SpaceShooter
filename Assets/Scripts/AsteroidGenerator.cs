@@ -80,14 +80,14 @@ public class AsteroidGenerator : MonoBehaviour
 
     //TODO random angle
     private void Instantiate(GameObject asteroid)
-    {
+    {//GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder
         Vector3 spawnPosition = new Vector3(Random.Range(GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder), Constants.AsteroidSpawnPosition.y, Constants.AsteroidSpawnPosition.z);
         GameObject temp = Instantiate(asteroid, spawnPosition, Quaternion.identity);
         
         torque.x = Random.Range(-1, 1);
         torque.y = Random.Range(-1, 1);
         torque.z = Random.Range(-1, 1);
-        temp.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-2f,2f), 0, -speed);
+        temp.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -speed);//Random.Range(-2f,2f)
         temp.GetComponent<ConstantForce>().torque = torque;
     }
     //TODO torque
@@ -104,7 +104,7 @@ public class AsteroidGenerator : MonoBehaviour
             torque.z = Random.Range(-0.5f, -0.5f);
             temp.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-2f, 2f), 0, -speed);
             temp.GetComponent<ConstantForce>().torque = torque;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0f);
         }
     }
     private IEnumerator DisableCollider(GameObject asteroid, float time)

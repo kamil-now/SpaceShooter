@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject player;
     private GameObject starField;
+    private GameObject background;
     private GameObject canvas;
     private Camera mainCamera;
 
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
     {
         SetupCamera(mainCamera);
         canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        SetupBackground();
         SetupStarField();
 
     }
@@ -122,14 +125,26 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        //TODO
+        StartCoroutine( ReloadScene()) ;
+    }
+    private IEnumerator ReloadScene()
+    {
+        yield return new WaitForSeconds(Constants.RestartTime);
         SceneManager.LoadSceneAsync(Constants.MainSceneIndex);
+    }
+    private void SetupBackground()
+    {
+        background = GameObject.FindGameObjectWithTag("Background");
     }
     private void SetupStarField()
     {
         starField = GameObject.FindGameObjectWithTag("StarField");
         starField.transform.position = Constants.InitStarfieldPosition;
+        starField.transform.localScale = new Vector3(background.transform.localScale.x / Constants.StarfieldBackgroundRatio.x,
+                                                    background.transform.localScale.y / Constants.StarfieldBackgroundRatio.y,
+                                                    background.transform.localScale.z/Constants.StarfieldBackgroundRatio.z);
     }
+
     private void SetupCamera(Camera cam)
     {
         this.mainCamera = cam;
@@ -139,14 +154,12 @@ public class GameManager : MonoBehaviour
         float distanceToCamera = Vector3.Distance(Player.transform.position, mainCamera.transform.position);
         //stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-        leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
-        rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
+        //leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
+        //rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
         bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).z + playerSize;
         topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distanceToCamera)).z - playerSize;
-        //leftBorder = -stageDimensions.y + playerSize;
-        //rightBorder = stageDimensions.y - playerSize;
-        //bottomBorder = -stageDimensions.z + playerSize;
-        //topBorder = stageDimensions.z- playerSize;
+        leftBorder = -Constants.StarfieldBackgroundRatio.x / 2f + playerSize;
+        rightBorder = Constants.StarfieldBackgroundRatio.x / 2f - playerSize;
 
     }
 

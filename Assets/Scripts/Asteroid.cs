@@ -15,7 +15,7 @@ public class Asteroid : MonoBehaviour
     //collision with player object
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag=="Player")
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
         }
@@ -36,17 +36,15 @@ public class Asteroid : MonoBehaviour
             GameObject asteroid = DefaultPrefabs.Instance.GetRandomSmallAsteroid();
             AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 3);
             if (other.gameObject.tag == "Bullet")
-
                 ScoreManager.Instance.Score += 2;
 
         }
         else if (this.gameObject.tag == "SmallAsteroid")
         {
             if (other.gameObject.tag == "Bullet")
-
                 ScoreManager.Instance.Score += 3;
         }
-
+        Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 

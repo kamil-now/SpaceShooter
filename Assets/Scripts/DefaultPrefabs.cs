@@ -20,6 +20,12 @@ public class DefaultPrefabs : MonoBehaviour
     [SerializeField]
     private GameObject defaultHpObject;
     [SerializeField]
+    private GameObject playerExplosionVFX;
+    [SerializeField]
+    private GameObject enemyExplosionVFX;
+    [SerializeField]
+    private GameObject asteroidExplosionVFX;
+    [SerializeField]
     private GameObject[] asteroids;
     [SerializeField]
     private GameObject[] smallAsteroids;
@@ -56,6 +62,27 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultHpText;
         }
     }
+    public GameObject PlayerExplosionVFX
+    {
+        get
+        {
+            return playerExplosionVFX;
+        }
+    }
+    public GameObject EnemyExplosionVFX
+    {
+        get
+        {
+            return enemyExplosionVFX;
+        }
+    }
+    public GameObject AsteroidExplosionVFX
+    {
+        get
+        {
+            return asteroidExplosionVFX;
+        }
+    }
     public GameObject[] Asteroids
     {
         get
@@ -84,6 +111,8 @@ public class DefaultPrefabs : MonoBehaviour
             return bigAsteroids;
         }
     }
+
+    
 
     private void Awake()
     {
