@@ -42,7 +42,7 @@ public class Health : MonoBehaviour
         txt = GameObject.Find("HP");
         //
         if (hpTextOn)
-            //InitHpText();
+           // InitHpText();
 
             if (hpObjectsOn)
                 InitHpObjects();
@@ -65,10 +65,31 @@ public class Health : MonoBehaviour
                 UpdateHpObjects();
         }
     }
-    private void OnCollisionEnter()
+    private void OnCollisionEnter(Collision collision)
     {
-        hp--;
-        GameManager.Instance.ShakeCamera();
+        GameManager.CameraShakeIntensity shake = GameManager.CameraShakeIntensity.Small;
+        switch (collision.gameObject.tag)
+        {
+            case "BigAsteroid":
+                {
+                    hp -= 3;
+                    shake = GameManager.CameraShakeIntensity.Big;
+                    break;
+                }
+            case "MediumASteroid":
+                {
+                    hp -= 2;
+                    shake = GameManager.CameraShakeIntensity.Medium;
+                    break;
+                }
+            case "SmallAsteroid":
+                {
+                    hp--;
+                    shake = GameManager.CameraShakeIntensity.Small;
+                    break;
+                }
+        }
+        GameManager.Instance.ShakeCamera(shake);
     }
     #endregion
 
@@ -92,8 +113,8 @@ public class Health : MonoBehaviour
     {
         if (hpTextPrefab != null)
             hpText = Instantiate(hpTextPrefab);
-        else
-            hpText = Instantiate(DefaultPrefabs.Instance.DefaultHpText);
+        //else
+           // hpText = Instantiate(DefaultPrefabs.Instance.DefaultHpText);
         //TODO
         hpText.transform.SetParent(GameObject.Find("Canvas").transform);
 

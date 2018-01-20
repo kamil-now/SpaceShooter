@@ -7,7 +7,8 @@ public static class Constants
 
     public const float DefaultPlayerSpeed = 1000;
     public const float DefaultHpObjectSpeed = 3;
-
+    public const int DefaultAsteroidSpeed = 7;
+    public const int DefaultEnemyShipSpeed = 7;
     public const float DefaultBulletSpeed = 25;
     public const float DefaultRateOfFire = 0.3f;
 
@@ -20,7 +21,7 @@ public static class Constants
     public const float AsteroidSpawnWait = 0.75f;
     public const float AsteroidStartWait = 2;
     public const float AsteroidWaveWait = 2;
-    public const int AsteroidDefaultSpeed = 7;
+    
 
     public const int InitPlayerHp = 10;
     public const int RestartTime = 5;

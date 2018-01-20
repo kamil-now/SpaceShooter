@@ -52,10 +52,10 @@ public class AsteroidGenerator : MonoBehaviour
         if (System.Math.Abs(waveWait) < 0.1)
             waveWait = Constants.AsteroidWaveWait;
         if (speed == 0)
-            speed = Constants.AsteroidDefaultSpeed;
+            speed = Constants.DefaultAsteroidSpeed;
     }
     #endregion
-    //TODO 
+
     private IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
@@ -99,9 +99,9 @@ public class AsteroidGenerator : MonoBehaviour
             
             //StartCoroutine(DisableCollider(temp, 0.7f));
 
-            torque.x = Random.Range(-0.5f, -0.5f);
-            torque.y = Random.Range(-0.5f, -0.5f);
-            torque.z = Random.Range(-0.5f, -0.5f);
+            torque.x = Random.Range(-0.5f, 0.5f);
+            torque.y = Random.Range(-0.5f, 0.5f);
+            torque.z = Random.Range(-0.5f, 0.5f);
             temp.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-2f, 2f), 0, -speed);
             temp.GetComponent<ConstantForce>().torque = torque;
             yield return new WaitForSeconds(0f);

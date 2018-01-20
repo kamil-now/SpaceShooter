@@ -3,14 +3,14 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
-    public Transform camTransform;
+    private Transform camTransform;
 
-    public float shakeDuration;
+    private float shakeDuration;
 
-    public float shakeAmount = 0.7f;
-    public float decreaseFactor = 1.0f;
+    private float shakeAmount = 0.7f;
+    private float decreaseFactor = 1.0f;
 
-    Vector3 originalPos;
+   private Vector3 originalPos;
 
     #region MonoBehaviour
     private void Awake()
@@ -41,4 +41,9 @@ public class CameraShake : MonoBehaviour
         }
     }
     #endregion
+    public void Shake(float shakeFactor)
+    {
+        shakeDuration = 0.3f;
+        shakeAmount = shakeFactor;
+    }
 }

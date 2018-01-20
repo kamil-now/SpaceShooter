@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public enum CameraShakeIntensity
+    {
+        Big,
+        Medium,
+        Small
+    }
     private static GameManager instance;
     public static GameManager Instance
     {
@@ -119,13 +125,32 @@ public class GameManager : MonoBehaviour
         SetupStarField();
 
     }
-    public void ShakeCamera()
+    public void ShakeCamera(CameraShakeIntensity shake)
     {
-        mainCamera.gameObject.GetComponent<CameraShake>().shakeDuration = 0.3f;
+        float shakeFactor = 0;
+        switch (shake)
+        {
+            case CameraShakeIntensity.Big:
+                {
+                    shakeFactor = 1f;
+                    break;
+                }
+            case CameraShakeIntensity.Medium:
+                {
+                    shakeFactor = 0.85f;
+                    break;
+                }
+            case CameraShakeIntensity.Small:
+                {
+                    shakeFactor = 0.7f;
+                    break;
+                }
+        }
+        mainCamera.gameObject.GetComponent<CameraShake>().Shake(shakeFactor);
     }
     public void GameOver()
     {
-        StartCoroutine( ReloadScene()) ;
+        StartCoroutine(ReloadScene());
     }
     private IEnumerator ReloadScene()
     {
@@ -142,7 +167,7 @@ public class GameManager : MonoBehaviour
         starField.transform.position = Constants.InitStarfieldPosition;
         starField.transform.localScale = new Vector3(background.transform.localScale.x / Constants.StarfieldBackgroundRatio.x,
                                                     background.transform.localScale.y / Constants.StarfieldBackgroundRatio.y,
-                                                    background.transform.localScale.z/Constants.StarfieldBackgroundRatio.z);
+                                                    background.transform.localScale.z / Constants.StarfieldBackgroundRatio.z);
     }
 
     private void SetupCamera(Camera cam)
