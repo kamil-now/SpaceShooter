@@ -21,9 +21,30 @@ public class LaserBuff : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, Vector3.forward, Color.green);
-
         if (Physics.Raycast(transform.position, Vector3.forward, out hit))
+        {
             endPoint = hit.point;
+            if (hit.transform.gameObject.tag == "BigAsteroid")
+            {
+                hit.transform.GetComponent<Asteroid>().GetMidiumAsteroid();
+                Destroy(hit.transform.gameObject);
+                ScoreManager.Instance.Score += 1;
+                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+            }
+            else if (hit.transform.gameObject.tag == "MediumAsteroid")
+            {
+                hit.transform.GetComponent<Asteroid>().GetSmallAsteroid();
+                Destroy(hit.transform.gameObject);
+                ScoreManager.Instance.Score += 2;
+                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+            }
+            else if (hit.transform.gameObject.tag == "SmallAsteroid")
+            {
+                Destroy(hit.transform.gameObject);
+                ScoreManager.Instance.Score += 3;
+                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+            }
+        }
         startPoint = transform.parent.position;
         laserLine.SetPosition(0, startPoint);
         laserLine.SetPosition(1, endPoint);
