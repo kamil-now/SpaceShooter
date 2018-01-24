@@ -25,7 +25,7 @@ public class CurledBuff : MonoBehaviour {
         if (time >= rateOfFire)
         {
             bullet = Instantiate(ammoPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), transform.rotation);
-            //bullet.GetComponent<Rigidbody>().velocity = transform.forward * 6;
+            bullet.GetComponentInChildren<Rigidbody>().velocity = transform.forward * 6;
             time = 0;
         }
     }

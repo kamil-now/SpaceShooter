@@ -20,7 +20,7 @@ public class BuffController : MonoBehaviour {
         {
             laserBuff.SetActive(true);
             Destroy(other.gameObject);
-            StartCoroutine(DisableBuff(atomBuff));
+            StartCoroutine(DisableBuff(laserBuff));
             GetComponent<Shooting>().isBuffTurnOn = true;
         }
         if (other.CompareTag("CurledBuff"))
@@ -36,16 +36,18 @@ public class BuffController : MonoBehaviour {
         if (other.CompareTag("ShieldBuff"))
         {
             gameObject.tag = "Untagged";
-            laserBuff.SetActive(true);
+            shieldBuff.SetActive(true);
             Destroy(other.gameObject);
-            StartCoroutine(DisableBuff(atomBuff));
+            print("sasa");
+            StartCoroutine(DisableBuff(shieldBuff));
         }
     }
 
     private IEnumerator DisableBuff(GameObject buff)
     {
         yield return new WaitForSeconds(buffTime);
-        buff.SetActive(true);
+        buff.SetActive(false);
+        print(buff.name);
         gameObject.tag = "Player";
         GetComponent<Shooting>().isBuffTurnOn = false;
     }
