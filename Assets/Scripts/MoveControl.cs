@@ -26,7 +26,6 @@ public class MoveControl : MonoBehaviour
         vector = new Vector3(horizontal, 0, vertical);
 
         rigidbody.velocity = vector * Time.fixedUnscaledDeltaTime * speed;
-
         rigidbody.position = new Vector3(
             Mathf.Clamp(rigidbody.position.x, GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder),
             Constants.InitPlayerPosition.y,
