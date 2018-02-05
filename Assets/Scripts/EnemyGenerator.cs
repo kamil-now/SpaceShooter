@@ -64,7 +64,7 @@ public class EnemyGenerator : MonoBehaviour
     
     private void Instantiate(GameObject prefab)
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder), Constants.AsteroidSpawnPosition.y, Constants.AsteroidSpawnPosition.z);
+        Vector3 spawnPosition = new Vector3(Random.Range(GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder), Constants.AsteroidSpawnPosition.y, Constants.AsteroidSpawnPosition.z+5);
 
         Instantiate(prefab, spawnPosition, prefab.transform.rotation);
     }

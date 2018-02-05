@@ -1,51 +1,60 @@
 ﻿using System;
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
 {
     private GameObject target;
-    private float missileVelocity =10;
+    private float missileVelocity = 10;
     private float turn = 1;
     private new Rigidbody rigidbody;
     private Vector3 torque;
     [SerializeField]
     private int speed;
-
-    private void  Awake()
+    public float distance;
+    private bool targetLock;
+    private void Awake()
     {
-        if(target==null)
+        if (target == null)
         {
             target = GameManager.Instance.Player;
         }
         rigidbody = this.GetComponent<Rigidbody>();
         if (speed == 0)
             speed = Constants.DefaultEnemyShipSpeed;
-        
-        this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -speed);
-        //SetTorque();
+
 
     }
-    public Quaternion rot;
+    public void Start()
+    {
+        targetLock = true;
+    }
     private void FixedUpdate()
     {
-
-       this.rigidbody.velocity = transform.forward;// * missileVelocity;
-
-        var targetRotation = Quaternion.LookRotation(target.transform.position - this.transform.position);
-        var rot = new Quaternion(targetRotation.x, targetRotation.y, targetRotation.z, targetRotation.w);
-        rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turn));
-
+        if (targetLock)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position), 0.3f * speed * Time.deltaTime);
+        }
+        transform.position += transform.forward * Time.deltaTime * speed;
+        ScanForPlayer();
     }
-    private void SetTorque()
+    private void OnCollisionEnter(Collision collision)
     {
-        torque.x = 0;
-        torque.y = 0;
-        torque.z = 10;
-        this.GetComponent<ConstantForce>().torque = torque;
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+        }
     }
+
     private void ScanForPlayer()
     {
-
+        distance = Vector3.Distance(this.transform.position, target.transform.position);
+        if(distance<6)
+        {
+            targetLock = false;
+        }
     }
 }
 
