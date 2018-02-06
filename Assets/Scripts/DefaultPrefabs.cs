@@ -16,17 +16,11 @@ public class DefaultPrefabs : MonoBehaviour
     [SerializeField]
     private GameObject defaultEnemy;
     [SerializeField]
-    private GameObject defaultHpText;
-    [SerializeField]
-    private GameObject defaultHpObject;
-    [SerializeField]
     private GameObject playerExplosionVFX;
     [SerializeField]
     private GameObject enemyExplosionVFX;
     [SerializeField]
     private GameObject asteroidExplosionVFX;
-    [SerializeField]
-    private GameObject[] asteroids;
     [SerializeField]
     private GameObject[] smallAsteroids;
     [SerializeField]
@@ -48,20 +42,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultEnemy;
         }
     }
-    public GameObject DefaultHpObject
-    {
-        get
-        {
-            return defaultHpObject;
-        }
-    }
-    public GameObject DefaultHpText
-    {
-        get
-        {
-            return defaultHpText;
-        }
-    }
     public GameObject PlayerExplosionVFX
     {
         get
@@ -81,13 +61,6 @@ public class DefaultPrefabs : MonoBehaviour
         get
         {
             return asteroidExplosionVFX;
-        }
-    }
-    public GameObject[] Asteroids
-    {
-        get
-        {
-            return asteroids;
         }
     }
     public GameObject[] SmallAsteroids

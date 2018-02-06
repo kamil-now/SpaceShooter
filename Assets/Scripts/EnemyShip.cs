@@ -2,56 +2,96 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyShip : MonoBehaviour
 {
-    private GameObject target;
-    private float missileVelocity = 10;
-    private float turn = 1;
+    private Transform target;
     private new Rigidbody rigidbody;
-    private Vector3 torque;
     [SerializeField]
     private int speed;
-    public float distance;
     private bool targetLock;
+    private float distanceToTarget;
+    [SerializeField]
+    private int hp;
+    private Text hpText;
+
+    public int Hp
+    {
+        get
+        {
+            return hp;
+        }
+    }
+    public float frequency;
+    private float startTime;
+    private Vector3 direction;
+    private Vector3 orthogonal;
     private void Awake()
     {
         if (target == null)
         {
-            target = GameManager.Instance.Player;
+            target = GameManager.Instance.Player.transform;
         }
         rigidbody = this.GetComponent<Rigidbody>();
-        if (speed == 0)
-            speed = Constants.DefaultEnemyShipSpeed;
-
-
+        speed = Constants.DefaultEnemyShipSpeed;
     }
     public void Start()
     {
+        startTime = Time.time;
+        hp = Constants.InitEnemyHp;
+        hpText = GameManager.Instance.GetChildObject(this.transform, "HpText").GetComponent<Text>();
+
         targetLock = true;
     }
     private void FixedUpdate()
     {
+
         if (targetLock)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position), 0.3f * speed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position), 0.2f * speed * Time.deltaTime);
         }
+
+
         transform.position += transform.forward * Time.deltaTime * speed;
-        ScanForPlayer();
+        MeasureDistanceToTarget();
+
     }
-    private void OnCollisionEnter(Collision collision)
+    private void LateUpdate()
     {
-        if (collision.gameObject.tag == "Player")
+        hpText.text = hp.ToString();
+        if (hp <= 0)
         {
-            Destroy(this.gameObject);
-            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Instantiate(DefaultPrefabs.Instance.EnemyExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            ScoreManager.Instance.Score += 1;
+            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
+            hp--;
+            if(hp==0)
+            {
+                ScoreManager.Instance.Score += 10;
+            }
         }
     }
 
-    private void ScanForPlayer()
+    private void OnCollisionEnter(Collision collision)
     {
-        distance = Vector3.Distance(this.transform.position, target.transform.position);
-        if(distance<6)
+        hp--;
+        if (collision.gameObject.tag == "Player")
+        {
+            hp = 0;
+        }
+    }
+    private void MeasureDistanceToTarget()
+    {
+        distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
+        if (distanceToTarget < 6)
         {
             targetLock = false;
         }

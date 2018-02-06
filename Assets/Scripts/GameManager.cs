@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
     private void SetupBackground()
     {
         background = GameObject.FindGameObjectWithTag("Background");
+        background.transform.localScale = Constants.StarfieldBackgroundRatio;
     }
     private void SetupStarField()
     {
@@ -177,17 +178,31 @@ public class GameManager : MonoBehaviour
         mainCamera.transform.position = Constants.DefaultCameraPosition;
         float playerSize = 2 * Player.GetComponent<MeshRenderer>().bounds.size.x;
         float distanceToCamera = Vector3.Distance(Player.transform.position, mainCamera.transform.position);
-        //stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-        //leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distanceToCamera)).x + playerSize;
-        //rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).x - playerSize;
         bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distanceToCamera)).z + playerSize;
         topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distanceToCamera)).z - playerSize;
         leftBorder = -Constants.StarfieldBackgroundRatio.x / 2f + playerSize;
         rightBorder = Constants.StarfieldBackgroundRatio.x / 2f - playerSize;
 
     }
-
+    public GameObject GetChildObject(Transform parent, string tag)
+    {
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.tag == tag)
+            {
+                return child.gameObject;
+            }
+            if (child.childCount > 0)
+            {
+                var obj = GetChildObject(child, tag);
+                if (obj != null)
+                    return obj;
+            }
+        }
+        return null;
+    }
 }
 
 

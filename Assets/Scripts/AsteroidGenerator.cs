@@ -42,7 +42,7 @@ public class AsteroidGenerator : MonoBehaviour
     private void Start()
     {
         if (asteroids == null)
-            asteroids = DefaultPrefabs.Instance.Asteroids;
+            asteroids = DefaultPrefabs.Instance.BigAsteroids;
 
         StartCoroutine(SpawnWaves());
         if (System.Math.Abs(spawnWait) < 0.1)
@@ -55,19 +55,23 @@ public class AsteroidGenerator : MonoBehaviour
             speed = Constants.DefaultAsteroidSpeed;
     }
     #endregion
-
     private IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
         while (true)
         {
+            
             if (on)
+            {
+                asteroidCount += 2;
                 for (int i = 0; i < asteroidCount; i++)
                 {
                     Instantiate(asteroids[Random.Range(0, asteroids.Length)]);
 
                     yield return new WaitForSeconds(spawnWait);
                 }
+            }
+                
             yield return new WaitForSeconds(waveWait);
         }
     }
@@ -96,8 +100,6 @@ public class AsteroidGenerator : MonoBehaviour
         for (int i = count; i > 0; i--)
         {
             GameObject temp = Instantiate(asteroid, spawnPosition, Quaternion.identity);
-            
-            //StartCoroutine(DisableCollider(temp, 0.7f));
 
             torque.x = Random.Range(-0.5f, 0.5f);
             torque.y = Random.Range(-0.5f, 0.5f);
@@ -106,12 +108,6 @@ public class AsteroidGenerator : MonoBehaviour
             temp.GetComponent<ConstantForce>().torque = torque;
             yield return new WaitForSeconds(0f);
         }
-    }
-    private IEnumerator DisableCollider(GameObject asteroid, float time)
-    {
-        asteroid.GetComponent<MeshCollider>().enabled = false;
-        yield return new WaitForSeconds(time);
-        asteroid.GetComponent<MeshCollider>().enabled = true;
     }
 
 }

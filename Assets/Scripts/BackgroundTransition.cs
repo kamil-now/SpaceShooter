@@ -6,7 +6,7 @@ public class BackgroundTransition : MonoBehaviour
 {
 
     private float scrollSpeed = -0.1f;
-    private float tileSizeZ = 30;
+    private float tileSizeZ = Constants.BackgroundLength;
 
     private Vector3 startPosition;
     

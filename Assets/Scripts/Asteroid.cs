@@ -9,13 +9,14 @@ public class Asteroid : MonoBehaviour
         if (System.Math.Abs(this.gameObject.transform.position.y) > 1)
         {
             this.gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
         }
 
     }
-    //collision with player object
+    //collision with player or enemy
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
         }
