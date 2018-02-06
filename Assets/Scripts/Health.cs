@@ -9,7 +9,6 @@ public class Health : MonoBehaviour
     private GameObject hpObjectPrefab;
     [SerializeField]
     private GameObject hpTextPrefab;
-
     [SerializeField]
     private bool hpTextOn;
     [SerializeField]
@@ -65,10 +64,15 @@ public class Health : MonoBehaviour
                 UpdateHpObjects();
         }
     }
-    private void OnCollisionEnter()
+    private void OnCollisionEnter(Collision col)
     {
-        hp--;
-        GameManager.Instance.ShakeCamera();
+        if(col.transform.CompareTag("HpBuff"))
+            hp++;
+        if (!GetComponent<BuffController>().shieldBuff.activeSelf)
+        {
+            hp--;
+            GameManager.Instance.ShakeCamera();
+        }
     }
     #endregion
 

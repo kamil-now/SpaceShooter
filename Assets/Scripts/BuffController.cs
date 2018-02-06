@@ -10,8 +10,8 @@ public class BuffController : MonoBehaviour {
     private GameObject curledBuff;
     [SerializeField]
     private GameObject atomBuff;
-    [SerializeField]
-    private GameObject shieldBuff;
+    [HideInInspector]
+    public GameObject shieldBuff;
     [SerializeField]
     private float buffTime = 3;
     private void OnTriggerEnter(Collider other)
@@ -38,7 +38,6 @@ public class BuffController : MonoBehaviour {
             gameObject.tag = "Untagged";
             shieldBuff.SetActive(true);
             Destroy(other.gameObject);
-            print("sasa");
             StartCoroutine(DisableBuff(shieldBuff));
         }
     }
