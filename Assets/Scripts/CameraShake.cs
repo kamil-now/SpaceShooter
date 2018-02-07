@@ -10,7 +10,7 @@ public class CameraShake : MonoBehaviour
     public float shakeAmount = 0.7f;
     public float decreaseFactor = 1.0f;
 
-    Vector3 originalPos;
+    private Vector3 originalPos;
 
     #region MonoBehaviour
     private void Awake()
@@ -39,6 +39,11 @@ public class CameraShake : MonoBehaviour
             shakeDuration = 0f;
             camTransform.localPosition = originalPos;
         }
+    }
+    public void Shake(float shakeFactor)
+    {
+        shakeDuration = 0.3f;
+        shakeAmount = shakeFactor;
     }
     #endregion
 }

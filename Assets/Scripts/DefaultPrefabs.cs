@@ -10,16 +10,26 @@ public class DefaultPrefabs : MonoBehaviour
             return instance;
         }
     }
+
     [SerializeField]
     private GameObject defaultBullet;
     [SerializeField]
     private GameObject defaultEnemy;
     [SerializeField]
-    private GameObject defaultHpText;
-    [SerializeField]
     private GameObject defaultHpObject;
     [SerializeField]
-    private GameObject[] asteroids;
+    private GameObject playerExplosionVFX;
+    [SerializeField]
+    private GameObject enemyExplosionVFX;
+    [SerializeField]
+    private GameObject asteroidExplosionVFX;
+    [SerializeField]
+    private GameObject[] smallAsteroids;
+    [SerializeField]
+    private GameObject[] mediumAsteroids;
+    [SerializeField]
+    private GameObject[] bigAsteroids;
+
     public GameObject DefaultBullet
     {
         get
@@ -27,7 +37,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultBullet;
         }
     }
-
     public GameObject DefaultEnemy
     {
         get
@@ -35,8 +44,6 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultEnemy;
         }
     }
-    
-
     public GameObject DefaultHpObject
     {
         get
@@ -44,20 +51,46 @@ public class DefaultPrefabs : MonoBehaviour
             return defaultHpObject;
         }
     }
-
-    public GameObject DefaultHpText
+    public GameObject PlayerExplosionVFX
     {
         get
         {
-            return defaultHpText;
+            return playerExplosionVFX;
         }
     }
-
-    public GameObject[] Asteroids
+    public GameObject EnemyExplosionVFX
     {
         get
         {
-            return asteroids;
+            return enemyExplosionVFX;
+        }
+    }
+    public GameObject AsteroidExplosionVFX
+    {
+        get
+        {
+            return asteroidExplosionVFX;
+        }
+    }
+    public GameObject[] SmallAsteroids
+    {
+        get
+        {
+            return smallAsteroids;
+        }
+    }
+    public GameObject[] MediumAsteroids
+    {
+        get
+        {
+            return mediumAsteroids;
+        }
+    }
+    public GameObject[] BigAsteroids
+    {
+        get
+        {
+            return bigAsteroids;
         }
     }
 
@@ -67,6 +100,19 @@ public class DefaultPrefabs : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    public GameObject GetRandomSmallAsteroid()
+    {
+        return SmallAsteroids[Random.Range(0, SmallAsteroids.Length)];
+    }
+    public GameObject GetRandomMediumAsteroid()
+    {
+        return MediumAsteroids[Random.Range(0, MediumAsteroids.Length)];
+    }
+    public GameObject GetRandomBigAsteroid()
+    {
+        return BigAsteroids[Random.Range(0, BigAsteroids.Length)];
     }
 }
 

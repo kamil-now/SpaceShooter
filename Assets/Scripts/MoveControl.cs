@@ -16,7 +16,7 @@ public class MoveControl : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        speed = Constants.DefaultPlayerSpeed;
+        speed = Values.DefaultPlayerSpeed;
     }
     private void Update()
     {
@@ -29,7 +29,7 @@ public class MoveControl : MonoBehaviour
 
         rigidbody.position = new Vector3(
             Mathf.Clamp(rigidbody.position.x, GameManager.Instance.LeftBorder, GameManager.Instance.RightBorder),
-            Constants.InitPlayerPosition.y,
+            Values.InitPlayerPosition.y,
             Mathf.Clamp(rigidbody.position.z, GameManager.Instance.BottomBorder, GameManager.Instance.TopBorder));
 
     }
