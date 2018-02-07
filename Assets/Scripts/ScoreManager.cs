@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    #region Singleton
     private static ScoreManager instance;
     public static ScoreManager Instance
     {
@@ -13,7 +14,8 @@ public class ScoreManager : MonoBehaviour
             return instance;
         }
     }
-
+    #endregion
+    #region Variables
     private GameObject scoreText;
     private int score;
 
@@ -43,6 +45,7 @@ public class ScoreManager : MonoBehaviour
             return scoreText;
         }
     }
+    #endregion
     #region MonoBehaviour
     private void Awake()
     {
