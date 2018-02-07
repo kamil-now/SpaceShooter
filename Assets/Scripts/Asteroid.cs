@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+
     private void Update()
     {
         if (System.Math.Abs(this.gameObject.transform.position.y) > 1)
@@ -61,7 +62,7 @@ public class Asteroid : MonoBehaviour
     }
     public void InstantiateExplosionParticle()
     {
-        Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+      GameObject particle =  Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
     }
 
     public void GetSmallAsteroid()

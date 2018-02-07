@@ -15,6 +15,10 @@ public class EnemyShip : MonoBehaviour
 
     public int Hp
     {
+        set
+        {
+            hp = value;
+        }
         get
         {
             return hp;
@@ -44,7 +48,7 @@ public class EnemyShip : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (targetLock)
+        if (targetLock && target != null)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position), 0.2f * speed * Time.deltaTime);
         }
@@ -59,11 +63,17 @@ public class EnemyShip : MonoBehaviour
         hpText.text = hp.ToString();
         if (hp <= 0)
         {
-            Instantiate(DefaultPrefabs.Instance.EnemyExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
-            BuffGenerator.Instance.InstantiateBuff(transform.position);
-            Destroy(gameObject);
+            RemoveShip();
         }
     }
+
+    public void RemoveShip()
+    {
+        Instantiate(DefaultPrefabs.Instance.EnemyExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
+        BuffGenerator.Instance.InstantiateBuff(transform.position);
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Bullet")

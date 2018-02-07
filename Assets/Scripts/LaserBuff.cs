@@ -27,26 +27,33 @@ public class LaserBuff : MonoBehaviour
             if (hit.transform.gameObject.tag == "BigAsteroid")
             {
                 hit.transform.GetComponent<Asteroid>().GetMediumAsteroid();
-                Destroy(hit.transform.gameObject);
-                ScoreManager.Instance.Score += 1;
-                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+                RemoveAsteroid(1);
             }
             else if (hit.transform.gameObject.tag == "MediumAsteroid")
             {
                 hit.transform.GetComponent<Asteroid>().GetSmallAsteroid();
-                Destroy(hit.transform.gameObject);
-                ScoreManager.Instance.Score += 2;
-                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+                RemoveAsteroid(2);
             }
             else if (hit.transform.gameObject.tag == "SmallAsteroid")
             {
+                RemoveAsteroid(3);
+            }
+            else if (hit.transform.gameObject.tag == "Enemy")
+            {
                 Destroy(hit.transform.gameObject);
-                ScoreManager.Instance.Score += 3;
-                hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
+                ScoreManager.Instance.Score += 10;
+                hit.transform.GetComponent<EnemyShip>().RemoveShip();
             }
         }
         startPoint = transform.parent.position;
         laserLine.SetPosition(0, startPoint);
         laserLine.SetPosition(1, endPoint);
+    }
+
+    private void RemoveAsteroid(int points)
+    {
+        Destroy(hit.transform.gameObject);
+        ScoreManager.Instance.Score += points;
+        hit.transform.GetComponent<Asteroid>().InstantiateExplosionParticle();
     }
 }

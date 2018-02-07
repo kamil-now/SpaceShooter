@@ -44,6 +44,7 @@ public class BuffController : MonoBehaviour
         if (other.CompareTag("HpBuff"))
         {
             GameManager.Instance.Player.GetComponent<PlayerShip>().Hp += 5;
+            Destroy(other.gameObject);
         }
     }
 
