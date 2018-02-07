@@ -41,7 +41,7 @@ public class AsteroidGenerator : MonoBehaviour
     }
     private void Start()
     {
-        if (asteroids == null)
+        if (asteroids.Length == 0)
             asteroids = DefaultPrefabs.Instance.BigAsteroids;
 
         StartCoroutine(SpawnWaves());

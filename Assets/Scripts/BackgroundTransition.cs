@@ -5,7 +5,7 @@ using UnityEngine;
 public class BackgroundTransition : MonoBehaviour
 {
 
-    private float scrollSpeed = -0.1f;
+    private float scrollSpeed = -0.3f;
     private float tileSizeZ = Constants.BackgroundLength;
 
     private Vector3 startPosition;

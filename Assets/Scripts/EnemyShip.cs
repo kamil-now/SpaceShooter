@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyShip : MonoBehaviour
@@ -62,8 +59,8 @@ public class EnemyShip : MonoBehaviour
         hpText.text = hp.ToString();
         if (hp <= 0)
         {
-            Destroy(gameObject);
             Instantiate(DefaultPrefabs.Instance.EnemyExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -71,11 +68,15 @@ public class EnemyShip : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             ScoreManager.Instance.Score += 1;
-            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
             hp--;
-            if(hp==0)
+
+            if (hp == 0)
             {
                 ScoreManager.Instance.Score += 10;
+            }
+            else
+            {
+                Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.GetChild(0).transform.position, transform.rotation);
             }
         }
     }
@@ -90,10 +91,13 @@ public class EnemyShip : MonoBehaviour
     }
     private void MeasureDistanceToTarget()
     {
-        distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
-        if (distanceToTarget < 6)
+        if (target != null && this != null)
         {
-            targetLock = false;
+            distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
+            if (distanceToTarget < 6)
+            {
+                targetLock = false;
+            }
         }
     }
 }

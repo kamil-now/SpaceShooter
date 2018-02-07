@@ -16,7 +16,7 @@ public static class Constants
     public const float FastRateOfFire = 0.2f;
 
 
-    public const float BackgroundLength = 80;
+    public const float BackgroundLength = 40;
 
     public const float AsteroidSpawnWait = 0.75f;
     public const float AsteroidStartWait = 2;

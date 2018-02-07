@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
+    private bool pause;
     private GameObject player;
     private GameObject starField;
     private GameObject background;
@@ -116,7 +116,33 @@ public class GameManager : MonoBehaviour
 
     }
     #endregion
+    private void Update()
+    {
 
+        if (pause == false)
+        {
+            Time.timeScale = 1;
+        }
+
+        else
+        {
+            Time.timeScale = 0;
+        }
+
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            if (pause == true)
+            {
+                pause = false;
+            }
+
+            else
+            {
+                pause = true;
+            }
+        }
+    }
     public void OnSceneLoaded(Camera mainCamera)
     {
         SetupCamera(mainCamera);
