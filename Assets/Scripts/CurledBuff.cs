@@ -16,6 +16,7 @@ public class CurledBuff : MonoBehaviour {
 
     private void Start()
     {
+        transform.parent = GameManager.Instance.Player.transform;
         StartCoroutine(DisableBuff());
     }
     // Update is called once per frame
