@@ -26,22 +26,16 @@ public class Asteroid : MonoBehaviour
     {
         if (this.gameObject.tag == "BigAsteroid")
         {
-            GetMidiumAsteroid();
+            GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
+            AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
             if (other.gameObject.tag == "Bullet")
-            {
                 ScoreManager.Instance.Score += 1;
-                BuffGenerator.Instance.InstantiateBuff(transform.position);
-            }
 
         }
         else if (this.gameObject.tag == "MediumAsteroid")
         {
-<<<<<<< HEAD
             GameObject asteroid = DefaultPrefabs.Instance.GetRandomSmallAsteroid();
             AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
-=======
-            GetSmallAsteroid();
->>>>>>> Buffs
             if (other.gameObject.tag == "Bullet")
                 ScoreManager.Instance.Score += 2;
 
@@ -51,26 +45,10 @@ public class Asteroid : MonoBehaviour
             if (other.gameObject.tag == "Bullet")
                 ScoreManager.Instance.Score += 3;
         }
-        InstantiateExplosionParticle();
+        Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 
-    public void InstantiateExplosionParticle()
-    {
-        Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
-    }
-
-    public void GetSmallAsteroid()
-    {
-        GameObject asteroid = DefaultPrefabs.Instance.GetRandomSmallAsteroid();
-        AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 3);
-    }
-
-    public void GetMidiumAsteroid()
-    {
-        GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
-        AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
-    }
 }
 
 

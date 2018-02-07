@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    public bool isBuffTurnOn;
     [SerializeField]
     private GameObject ammoPrefab;
     private float time;
@@ -29,7 +28,7 @@ public class Shooting : MonoBehaviour
         if (ammoPrefab == null)
             ammoPrefab = DefaultPrefabs.Instance.DefaultBullet;
         time += Time.deltaTime;
-        if (Input.GetKey("space") && time >= rateOfFire && !isBuffTurnOn)
+        if (Input.GetKey("space") && time >= rateOfFire)
         {
             bullet = Instantiate(ammoPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), ammoPrefab.transform.rotation);
             bullet.transform.SetParent(bulletsSpawn.transform);
