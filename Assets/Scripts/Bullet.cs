@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider col)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!col.CompareTag("Player"))
+        if (!collision.transform.CompareTag("Player"))
         {
             Destroy(this.gameObject);
         }
