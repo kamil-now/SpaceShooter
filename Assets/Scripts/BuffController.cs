@@ -36,7 +36,6 @@ public class BuffController : MonoBehaviour
         }
         if (other.CompareTag("ShieldBuff"))
         {
-            gameObject.tag = "Untagged";
             shieldBuff.SetActive(true);
             Destroy(other.gameObject);
             StartCoroutine(DisableBuff(shieldBuff));
@@ -53,7 +52,6 @@ public class BuffController : MonoBehaviour
         yield return new WaitForSeconds(buffTime);
         buff.SetActive(false);
         print(buff.name);
-        gameObject.tag = "Player";
         GetComponent<Shooting>().isBuffTurnOn = false;
     }
 }

@@ -21,14 +21,11 @@ public class Asteroid : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        else if(collision.gameObject.tag == "Enemy")
-        {
-            OnTriggerEnter(null);
-        }
     }
     //other collisions
     private void OnTriggerEnter(Collider other)
     {
+
         if (this.gameObject.tag == "BigAsteroid")
         {
             GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
@@ -55,10 +52,14 @@ public class Asteroid : MonoBehaviour
                 BuffGenerator.Instance.InstantiateBuff(transform.position);
                 ScoreManager.Instance.Score += 3;
             }
-                
+
         }
-        Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
-        Destroy(this.gameObject);
+        if (!other.CompareTag("Enemy"))
+        {
+            Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+            Destroy(this.gameObject);
+        }
+
     }
     private void OnBecameInvisible()
     {
@@ -66,7 +67,7 @@ public class Asteroid : MonoBehaviour
     }
     public void InstantiateExplosionParticle()
     {
-      GameObject particle =  Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
+        GameObject particle = Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
     }
 
     public void GetSmallAsteroid()

@@ -95,10 +95,13 @@ public class EnemyShip : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        hp--;
-        if (collision.gameObject.tag == "Player")
+        if(!collision.transform.CompareTag("Asteroid"))
         {
-            hp = 0;
+            hp--;
+            if (collision.gameObject.tag == "Player")
+            {
+                hp = 0;
+            }
         }
     }
     private void OnBecameInvisible()
