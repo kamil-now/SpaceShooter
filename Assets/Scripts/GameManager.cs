@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
+    private GameObject pauseMenu;
     private GameObject player;
     private GameObject starField;
     private GameObject background;
@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     private float bottomBorder;
     [SerializeField]
     private float topBorder;
+
+    private bool pause;
 
     public GameObject Player
     {
@@ -110,7 +112,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool pause;
+    public GameObject PauseMenu
+    {
+        get
+        {
+            return pauseMenu;
+        }
+
+        set
+        {
+            pauseMenu = value;
+        }
+    }
 
     #region MonoBehaviour
     private void Awake()
@@ -139,19 +152,29 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Escape))
         {
-            pause = !pause;
-            //LoadExitScene();
+            pause = true;
+            PauseMenu.SetActive(true);
         }
     }
     #endregion
-
+    public void Continue()
+    {
+        pause = false;
+        PauseMenu.SetActive(false);
+    }
+    public void Restart()
+    {
+        Continue();
+        ScoreManager.Instance.Score = 0;
+        SceneManager.LoadScene(Values.MainSceneIndex);
+    }
     public void OnSceneLoaded(Camera mainCamera)
     {
         SetupCamera(mainCamera);
         canvas = GameObject.FindGameObjectWithTag("MainCanvas");
         SetupBackground();
         SetupStarField();
-
+        PauseMenu.SetActive(false);
     }
     public void ShakeCamera(CameraShakeIntensity shake)
     {
@@ -176,14 +199,15 @@ public class GameManager : MonoBehaviour
         }
         mainCamera.gameObject.GetComponent<CameraShake>().Shake(shakeFactor);
     }
-    public void LoadGameOverScene()
+    public void SetGameOver()
     {
-        StartCoroutine( ReloadScene()) ;
+        gameOver = true;
+        StartCoroutine(LoadMainMenu());
     }
-    private IEnumerator ReloadScene()
+    private IEnumerator LoadMainMenu()
     {
         yield return new WaitForSeconds(Values.RestartTime);
-        SceneManager.LoadSceneAsync(Values.MainSceneIndex);
+        SceneManager.LoadScene(Values.MainMenuIndex);
     }
     private void SetupBackground()
     {
@@ -196,7 +220,7 @@ public class GameManager : MonoBehaviour
         starField.transform.position = Values.InitStarfieldPosition;
         starField.transform.localScale = new Vector3(background.transform.localScale.x / Values.StarfieldBackgroundRatio.x,
                                                     background.transform.localScale.y / Values.StarfieldBackgroundRatio.y,
-                                                    background.transform.localScale.z/Values.StarfieldBackgroundRatio.z);
+                                                    background.transform.localScale.z / Values.StarfieldBackgroundRatio.z);
     }
 
     private void SetupCamera(Camera cam)

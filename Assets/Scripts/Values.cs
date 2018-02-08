@@ -37,7 +37,7 @@ public static class Values
     public static readonly Vector3 InitPlayerPosition = new Vector3(0, 0, 0);
     public static readonly Vector3 InitStarfieldPosition = new Vector3(0, -5, 15);
     public static readonly Vector3 StarfieldBackgroundRatio = new Vector3(BackgroundLength / 2, BackgroundLength, 1);
-    public static readonly Vector3 AsteroidSpawnPosition = new Vector3(0, 0, 15);
+    public static readonly Vector3 AsteroidSpawnPosition = new Vector3(0, 0, 20);
     public static readonly Vector3 EnemySpawnPosition = new Vector3(0, 0, 20);
 
 }

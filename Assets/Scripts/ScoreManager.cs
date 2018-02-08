@@ -30,7 +30,8 @@ public class ScoreManager : MonoBehaviour
         {
 
             score = value;
-            ScoreText.GetComponent<Text>().text = Score.ToString();
+            if (ScoreText != null)
+                ScoreText.GetComponent<Text>().text = Score.ToString();
         }
     }
     public GameObject ScoreText

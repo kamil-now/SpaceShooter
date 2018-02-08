@@ -33,7 +33,7 @@ public class PlayerShip : MonoBehaviour
             Destroy(gameObject);
             Instantiate(DefaultPrefabs.Instance.PlayerExplosionVFX, transform.position, transform.rotation);
 
-            GameManager.Instance.LoadGameOverScene();
+            GameManager.Instance.SetGameOver();
         }
     }
     private void OnCollisionEnter(Collision collision)
