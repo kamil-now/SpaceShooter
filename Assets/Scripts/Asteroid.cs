@@ -17,9 +17,13 @@ public class Asteroid : MonoBehaviour
     //collision with player or enemy
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
+        }
+        else if(collision.gameObject.tag == "Enemy")
+        {
+            OnTriggerEnter(null);
         }
     }
     //other collisions

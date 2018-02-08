@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private GameObject background;
     private GameObject canvas;
     private Camera mainCamera;
-
+    private bool gameOver;
     [SerializeField]
     private float leftBorder;
     [SerializeField]
@@ -102,6 +102,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool GameOver
+    {
+        get
+        {
+            return gameOver;
+        }
+    }
+
     private bool pause;
 
     #region MonoBehaviour
@@ -114,34 +122,25 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        SceneManager.LoadSceneAsync(Values.MainSceneIndex);
+        SceneManager.LoadSceneAsync(Values.MainMenuIndex);
 
     }
     private void Update()
     {
-
-        if (pause == false)
+        if (!pause)
         {
             Time.timeScale = 1;
         }
-
         else
         {
             Time.timeScale = 0;
         }
 
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.Escape))
         {
-            if (pause == true)
-            {
-                pause = false;
-            }
-
-            else
-            {
-                pause = true;
-            }
+            pause = !pause;
+            //LoadExitScene();
         }
     }
     #endregion
@@ -177,7 +176,7 @@ public class GameManager : MonoBehaviour
         }
         mainCamera.gameObject.GetComponent<CameraShake>().Shake(shakeFactor);
     }
-    public void GameOver()
+    public void LoadGameOverScene()
     {
         StartCoroutine( ReloadScene()) ;
     }

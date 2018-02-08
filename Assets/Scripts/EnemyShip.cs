@@ -32,6 +32,7 @@ public class EnemyShip : MonoBehaviour
     {
         if (target == null)
         {
+            if(!GameManager.Instance.GameOver)
             target = GameManager.Instance.Player.transform;
         }
         rigidbody = this.GetComponent<Rigidbody>();

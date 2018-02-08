@@ -3,6 +3,7 @@ guid: e20c06fc22f9c1d41afdab886d3f30a8
 timeCreated: 1517946599
 licenseType: Free
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -11,11 +12,12 @@ TrueTypeFontImporter:
   includeFontData: 1
   fontName: Death Star
   fontNames:
-  - Death Star
+  - SWFont
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
