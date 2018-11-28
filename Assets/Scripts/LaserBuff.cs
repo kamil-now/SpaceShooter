@@ -26,18 +26,9 @@ public class LaserBuff : MonoBehaviour
             endPoint = hit.point;
             if (hit.transform.gameObject.tag == "BigAsteroid")
             {
-                hit.transform.GetComponent<Asteroid>().GetMediumAsteroid();
                 RemoveAsteroid(1);
             }
-            else if (hit.transform.gameObject.tag == "MediumAsteroid")
-            {
-                hit.transform.GetComponent<Asteroid>().GetSmallAsteroid();
-                RemoveAsteroid(2);
-            }
-            else if (hit.transform.gameObject.tag == "SmallAsteroid")
-            {
-                RemoveAsteroid(3);
-            }
+
             else if (hit.transform.gameObject.tag == "Enemy")
             {
                 Destroy(hit.transform.gameObject);

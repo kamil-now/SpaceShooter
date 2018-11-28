@@ -7,14 +7,20 @@ public class Asteroid : MonoBehaviour
 {
     private RectTransform rt;
     private Transform canvas;
+    private Text text;
+    private int randomNumber;
+    private Transform player;
 
-    private void OnEnable()
+    private void Start()
     {
         canvas = transform.GetChild(0);
-        Text text = canvas.GetChild(0).GetComponent<Text>();
+        text = canvas.GetChild(0).GetComponent<Text>();
         rt = canvas.GetComponent<RectTransform>();
-        text.text = Random.Range(0, 10).ToString();
+        randomNumber = Random.Range(0, 11);
+        text.text = randomNumber.ToString();
         canvas.SetParent(null);
+        if(GameManager.Instance.Player != null)
+        player = GameManager.Instance.Player.transform;
     }
 
     private void Update()
@@ -34,30 +40,35 @@ public class Asteroid : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
+            Destroy(canvas.gameObject);
         }
     }
     //other collisions
     private void OnTriggerEnter(Collider other)
     {
 
-        if (this.gameObject.tag == "BigAsteroid")
+        // GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
+        //AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
+        if (other.gameObject.tag == "Bullet")
         {
-           // GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
-            //AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
-            if (other.gameObject.tag == "Bullet")
+            Destroy(other.gameObject);
+            
+            if (player.GetChild(1).GetChild(1).GetChild(player.GetComponent<PlayerShip>().randomOperation).name == randomNumber.ToString())
             {
-                ScoreManager.Instance.Score += 1;
+                ScoreManager.Instance.Score += 3;
+                player.GetChild(1).GetChild(0).GetComponent<Text>().text = (ScoreManager.Instance.Score + 3).ToString();
+                player.GetComponent<PlayerShip>().GetRandomOperation();
             }
+            else
+            {
+                Destroy(other.gameObject);
+                player.transform.GetComponent<PlayerShip>().Hp -= 3;
+                Destroy(this.gameObject);
+                Destroy(canvas.gameObject);
+                player.GetComponent<PlayerShip>().GetRandomOperation();
+            }
+        }
 
-        }
-        else if (this.gameObject.tag == "MediumAsteroid")
-        {
- 
-        }
-        else if (this.gameObject.tag == "SmallAsteroid")
-        {
-
-        }
         if (!other.CompareTag("Enemy"))
         {
             Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
@@ -69,24 +80,13 @@ public class Asteroid : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
-        Destroy(canvas.gameObject);
+        //Destroy(canvas.gameObject);
     }
     public void InstantiateExplosionParticle()
     {
         GameObject particle = Instantiate(DefaultPrefabs.Instance.AsteroidExplosionVFX, transform.position, transform.rotation);
     }
 
-    public void GetSmallAsteroid()
-    {
-        GameObject asteroid = DefaultPrefabs.Instance.GetRandomSmallAsteroid();
-        AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 3);
-    }
-
-    public void GetMediumAsteroid()
-    {
-        GameObject asteroid = DefaultPrefabs.Instance.GetRandomMediumAsteroid();
-        AsteroidGenerator.Instance.Shatter(asteroid, transform.position, 2);
-    }
 }
 
 

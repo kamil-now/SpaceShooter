@@ -6,7 +6,7 @@ public class PlayerShip : MonoBehaviour
     [SerializeField]
     private int hp;
     private Text hpText;
-
+    public int randomOperation;
     public int Hp
     {
         get
@@ -18,6 +18,18 @@ public class PlayerShip : MonoBehaviour
         {
             hp = value;
         }
+    }
+
+    public void GetRandomOperation()
+    {
+        transform.GetChild(1).GetChild(1).GetChild(randomOperation).gameObject.SetActive(false);
+        randomOperation = Random.Range(0, 4);
+        transform.GetChild(1).GetChild(1).GetChild(randomOperation).gameObject.SetActive(true);
+    }
+
+    private void OnEnable()
+    {
+        GetRandomOperation();
     }
 
     private void Start()
